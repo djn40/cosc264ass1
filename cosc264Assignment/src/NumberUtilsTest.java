@@ -35,6 +35,6 @@ public class NumberUtilsTest {
 	public void bscTest() {
 		BSC b=new StateBSC(30, 100, 0.05, 0.2, 0.1, 0.9);
 		b.getInfo();
-		b.simulation(1000000);
+		b.simulation(10000);
 				}
 }

@@ -16,16 +16,22 @@ public class BSC {
 		System.out.println(this.T);
 		System.out.println(this.packetLength);
 	}
-	public void simulation(int n) {
+	public double simulation(int n) {
 		int i=0;
-		int totalBits=0;
+		double total=0;
+		double part=0;
+		int xi;
+		double xin;
 		while (i<n) {
-			totalBits+=this.sendPacket();
+			xi = this.sendPacket();
+			xin=xi*this.packetLength;
+			part=this.userData/xin;
+			total+=part;
 			i++;
 		}
-		int avg=totalBits/n;
+		double avg=1/total;
 		//debug
-		System.out.println(avg);
+		return avg;
 	}
 	private int sendPacket() {
 		int transmissions=0;
