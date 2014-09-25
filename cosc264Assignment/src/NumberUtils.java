@@ -34,15 +34,17 @@ public static int binomdist(final int n, final double errorRate) {
 
 	public static int calcT(int n, int k) {
 int i=0;
-double t=0;
-double result = Math.pow(2, (n-k));
-while (t < result) {
+BigInteger t=new BigInteger("0");
+BigInteger  result = BigInteger.valueOf(2);
+result=result.pow((n-k));
+BigInteger temp;
+while (t.compareTo(result) != 1) {
 	i+=1;
-		t+=NumberUtils.choose(n, i).doubleValue();
+	temp=NumberUtils.choose(n, i);
+		t=t.add(temp);
 }
-return i;
+return i-1;
 
 	}
-
 
 }

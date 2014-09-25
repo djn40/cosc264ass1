@@ -8,8 +8,19 @@ public class BSC {
 		this.redundantBits = redundantBits;
 		this.userData = userData;
 		this.errorRate = errorRate;
+		this.initValues();
+	}
+	private void initValues() {
 		this.packetLength = this.userData+this.overhead+this.redundantBits;
-		this.T=NumberUtils.calcT(packetLength , this.redundantBits);
+		this.T=NumberUtils.calcT(this.packetLength, (this.overhead+this.userData));
+	}
+	public void setUserData(int u) {
+		this.userData=u;
+		this.initValues();
+	}
+	public void setErrorRate(double p) {
+		this.errorRate=p;
+		this.initValues();
 	}
 	//debug
 	public void getInfo(){
@@ -20,17 +31,20 @@ public class BSC {
 		int i=0;
 		double total=0;
 		double part=0;
-		int xi;
+		int xi, totalXi;
 		double xin;
+		totalXi=0;
 		while (i<n) {
 			xi = this.sendPacket();
+			totalXi+=xi;
 			xin=xi*this.packetLength;
 			part=this.userData/xin;
-			total+=part;
+			total+=xin;
 			i++;
 		}
 		double avg=1/total;
 		//debug
+		System.out.println("AVG xi "+(totalXi/n)+". Value "+avg);
 		return avg;
 	}
 	private int sendPacket() {
@@ -38,6 +52,7 @@ public class BSC {
 		int s=this.T+1;
 		//Hack to make sure we transmit at least once
 		while(s > this.T) {
+			//System.out.println(transmissions);
 			s=this.getS();
 			transmissions++;
 			//debug
