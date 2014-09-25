@@ -38,6 +38,6 @@ public class NumberUtilsTest {
 		//b.getInfo();
 		//b.simulation(10000);
 		CSV c = new CSV();
-		c.genGraph2();
+		c.genGraph1(0.01);
 				}
 }
